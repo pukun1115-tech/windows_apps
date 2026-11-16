@@ -16,14 +16,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 
 //main関数のようなもの
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+    //const wchar_tのArray CLASS_NAMEという名前
     const wchar_t CLASS_NAME[] = L"Sample Window Class";
 
     //設計図
     WNDCLASS wc = {};
-    wc.lpfnWndProc   = WindowProc;
-    wc.hInstance     = hInstance;
+    //イベントを処理する関数のポインタ
+    wc.lpfnWndProc = WindowProc;
+    wc.hInstance = hInstance;
+    //ポインタを渡す
     wc.lpszClassName = CLASS_NAME;
 
+    //Windowsに登録
     RegisterClass(&wc);
 
     //ウィンドウを作成
@@ -37,6 +41,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
         NULL, NULL, hInstance, NULL
     );
 
+    //ウィンドウを作成できなかったら
     if (hwnd == NULL) {
         return 0;
     }
