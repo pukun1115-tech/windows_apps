@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "build active c/c++ file",
+            "command": "cl.exe",
+            "args": [
+                "/Zi",
+                "/EHsc",
+                "/utf-8",
+                "${file}",
+                "/Fe:${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "/link",
+                "user32.lib",
+                "/SUBSYSTEM:WINDOWS"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "build active c/c++ file."
+        }
+    ]
+}
