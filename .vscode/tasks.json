@@ -13,6 +13,7 @@
                 "/Fe:${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "/link",
                 "user32.lib",
+                "gdi32.lib",
                 "/SUBSYSTEM:WINDOWS"
             ],
             "options": {

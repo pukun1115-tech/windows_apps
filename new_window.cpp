@@ -13,9 +13,30 @@ LRESULT CALLBACK WindowProc(
     LPARAM lParam//情報
 ) {
     switch (uMsg) {
-        case WM_DESTROY:
+        case WM_PAINT: {
+            PAINTSTRUCT ps;
+            // 1. 描画の開始（デバイスコンテキストを取得）
+            HDC hdc = BeginPaint(hwnd, &ps);
+
+            // 2. 文字を描画する
+            SetTextColor(hdc, RGB(255, 0, 0));
+            const wchar_t text[] = L"Hello, Win32 API!";
+            TextOut(hdc, 50, 50, text, lstrlen(text));
+
+            // 3. 図形（四角形と線）を描画する
+            Rectangle(hdc, 50, 100, 250, 200); // 左上(50,100)〜右下(250,200)の四角形
+            
+            MoveToEx(hdc, 50, 250, NULL);      // 線の始点(50, 250)へ移動
+            LineTo(hdc, 250, 500);             // 終点(250, 250)まで線を引く
+
+            // 4. 描画の終了（必ずBeginPaintとセットで呼ぶ）
+            EndPaint(hwnd, &ps);
+            return 0;
+        }
+        case WM_DESTROY: {
             PostQuitMessage(0);
             return 0;
+        }
     }
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
