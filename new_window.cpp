@@ -5,7 +5,12 @@
 #include <windows.h>
 
 //イベントを処理する関数
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK WindowProc(
+    HWND hwnd,
+    UINT uMsg,
+    WPARAM wParam,
+    LPARAM lParam
+) {
     switch (uMsg) {
         case WM_DESTROY:
             PostQuitMessage(0);
@@ -15,7 +20,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 }
 
 //main関数のようなもの
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+int WINAPI wWinMain(
+    HINSTANCE hInstance,//実行中のプログラムそのものを識別するためのもの
+    HINSTANCE hPrevInstance,//使わない
+    PWSTR pCmdLine,//起動時に渡されるコマンドライン引数
+    int nCmdShow//最初ウィンドウをどう表示するか
+) {
     //const wchar_tのArray CLASS_NAMEという名前
     const wchar_t CLASS_NAME[] = L"Sample Window Class";
 
@@ -23,7 +33,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     WNDCLASS wc = {};
     //イベントを処理する関数
     wc.lpfnWndProc = WindowProc;
-    //なにか
+    //設計図の所有者はこの実行中のプログラム
     wc.hInstance = hInstance;
     //ポインタを渡す
     wc.lpszClassName = CLASS_NAME;
