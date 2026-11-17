@@ -39,7 +39,9 @@ int WINAPI wWinMain(
     wc.lpszClassName = CLASS_NAME;
 
     //Windowsに登録
-    RegisterClass(&wc);
+    if (!RegisterClass(&wc)) {
+        return 0;
+    }
 
     //ウィンドウを作成
     HWND hwnd = CreateWindowEx(
