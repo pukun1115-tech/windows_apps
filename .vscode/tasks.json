@@ -3,7 +3,7 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "pu's build active c/c++ file",
+            "label": "pu Build active c/c++ file",
             "command": "cl.exe",
             "args": [
                 "/Zi",
@@ -25,7 +25,13 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "build active c/c++ file."
+            "detail": "pu Build active c/c++ file."
+        },
+        {
+            "label": "pu Run new_window.exe",
+            "type": "process",
+            "command": "${workspaceFolder}\\new_window.exe",
+            "problemMatcher": []
         }
     ]
 }

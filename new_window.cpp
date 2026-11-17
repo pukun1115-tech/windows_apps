@@ -38,6 +38,10 @@ int WINAPI wWinMain(
     wc.hInstance = hInstance;
     //ポインタを渡す
     wc.lpszClassName = CLASS_NAME;
+    //背景色
+    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    //カーソル
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 
     //Windowsに登録
     if (!RegisterClass(&wc)) {

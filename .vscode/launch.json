@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Build and Run (pu)",
+            "name": "pu Build and Run",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -11,7 +11,7 @@
             "cwd": "${fileDirname}",
             "environment": [],
             "console": "integratedTerminal",
-            "preLaunchTask": "build active c/c++ file"
+            "preLaunchTask": "pu Build active c/c++ file"
         }
     ]
 }
