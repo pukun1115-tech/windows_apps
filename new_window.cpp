@@ -15,21 +15,20 @@ LRESULT CALLBACK WindowProc(
     switch (uMsg) {
         case WM_PAINT: {
             PAINTSTRUCT ps;
-            // 1. 描画の開始（デバイスコンテキストを取得）
             HDC hdc = BeginPaint(hwnd, &ps);
 
-            // 2. 文字を描画する
+            //文字
             SetTextColor(hdc, RGB(255, 0, 0));
             const wchar_t text[] = L"Hello, Win32 API!";
             TextOut(hdc, 50, 50, text, lstrlen(text));
 
-            // 3. 図形（四角形と線）を描画する
-            Rectangle(hdc, 50, 100, 250, 200); // 左上(50,100)〜右下(250,200)の四角形
+            //図形
+            Rectangle(hdc, 50, 100, 250, 200);
             
-            MoveToEx(hdc, 50, 250, NULL);      // 線の始点(50, 250)へ移動
-            LineTo(hdc, 250, 500);             // 終点(250, 250)まで線を引く
+            MoveToEx(hdc, 50, 250, NULL);
+            LineTo(hdc, 250, 500);
 
-            // 4. 描画の終了（必ずBeginPaintとセットで呼ぶ）
+            //BeginPaintの後必ず実行
             EndPaint(hwnd, &ps);
             return 0;
         }
