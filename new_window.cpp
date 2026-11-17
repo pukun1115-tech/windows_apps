@@ -5,6 +5,7 @@
 #include <windows.h>
 
 //イベントを処理する関数
+//CALLBACKはWindowsに呼び出してもらうということ
 LRESULT CALLBACK WindowProc(
     HWND hwnd,
     UINT uMsg,
