@@ -3,7 +3,7 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "build active c/c++ file",
+            "label": "pu's build active c/c++ file",
             "command": "cl.exe",
             "args": [
                 "/Zi",
