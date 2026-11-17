@@ -55,7 +55,7 @@ int WINAPI wWinMain(
         L"VS Code & MSVC Window",       // ウィンドウタイトル
         WS_OVERLAPPEDWINDOW,            // ウィンドウスタイル
         CW_USEDEFAULT, CW_USEDEFAULT,   // 表示位置 (X, Y)
-        800, 600,                       // サイズ (幅, 高さ)
+        1200, 800,                       // サイズ (幅, 高さ)
         NULL, NULL, hInstance, NULL
     );
 
