@@ -7,10 +7,10 @@
 //イベントを処理する関数
 //CALLBACKはWindowsに呼び出してもらうということ
 LRESULT CALLBACK WindowProc(
-    HWND hwnd,
-    UINT uMsg,
-    WPARAM wParam,
-    LPARAM lParam
+    HWND hwnd,//どのウィンドウか
+    UINT uMsg,//種類
+    WPARAM wParam,//情報
+    LPARAM lParam//情報
 ) {
     switch (uMsg) {
         case WM_DESTROY:
