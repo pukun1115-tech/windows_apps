@@ -21,8 +21,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
     //設計図
     WNDCLASS wc = {};
-    //イベントを処理する関数のポインタ
+    //イベントを処理する関数
     wc.lpfnWndProc = WindowProc;
+    //なにか
     wc.hInstance = hInstance;
     //ポインタを渡す
     wc.lpszClassName = CLASS_NAME;
