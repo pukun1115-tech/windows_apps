@@ -26,15 +26,18 @@ LRESULT CALLBACK WindowProc(
             if (wParam == SIZE_MINIMIZED) {
                 KillTimer(hwnd, TIMER_ID);
             } else if (wParam == SIZE_RESTORED || wParam == SIZE_MAXIMIZED) {
-                SetTimer(hwnd, TIMERID, 16, NULL);
+                SetTimer(hwnd, TIMER_ID, 16, NULL);
             }
             return 0;
         }
 
         case WM_TIMER: {
             if (wParam == TIMER_ID) {
+                RECT rc;
+                GetClientRect(hwnd, &rc);
+                
                 x += 10;
-                if (x > 600) {
+                if (x > rc.right - rc.left) {
                     x = -10;
                 }
 
@@ -43,7 +46,7 @@ LRESULT CALLBACK WindowProc(
             return 0;
         }
 
-        case WM_ERASEBKGRD: {
+        case WM_ERASEBKGRND: {
             return 1;
         }
 
@@ -62,18 +65,21 @@ LRESULT CALLBACK WindowProc(
 
             FillRect(mem_hdc, &rc, (HBRUSH)(COLOR_WINDOW + 1));
 
+            //
+            //
             //文字
             SetTextColor(mem_hdc, RGB(255, 0, 0));
             const wchar_t text[] = L"Hello, Win32 API!";
             TextOut(mem_hdc, x, 50, text, lstrlen(text));
 
             //図形
-            Rectangle(mem_hdc, x, 50, x + 50, 100);
+            Rectangle(mem_hdc, x, 150, x + 50, 200);
             
             MoveToEx(mem_hdc, x, 250, NULL);
             LineTo(mem_hdc, x, 500);
             //
             //
+            
             BitBlt(hdc, 0, 0, width, height, mem_hdc, 0, 0, SRCCOPY);
 
             SelectObject(mem_hdc, old_hbm);
