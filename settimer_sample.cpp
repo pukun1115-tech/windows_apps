@@ -6,7 +6,7 @@
 
 #define TIMER_ID 1
 
-int box_x = 0;
+int x = 0;
 
 //イベントを処理する関数
 //CALLBACKはWindowsに呼び出してもらうということ
@@ -22,11 +22,20 @@ LRESULT CALLBACK WindowProc(
             return 0;
         }
 
+        case WM_SIZE: {
+            if (wParam == SIZE_MINIMIZED) {
+                KillTimer(hwnd, TIMER_ID);
+            } else if (wParam == SIZE_RESTORED || wParam == SIZE_MAXIMIZED) {
+                SetTimer(hwnd, TIMERID, 16, NULL);
+            }
+            return 0;
+        }
+
         case WM_TIMER: {
             if (wParam == TIMER_ID) {
-                box_x += 10;
-                if (box_x > 600) {
-                    box_x = -10;
+                x += 10;
+                if (x > 600) {
+                    x = -10;
                 }
 
                 InvalidateRect(hwnd, NULL, FALSE);
@@ -34,20 +43,42 @@ LRESULT CALLBACK WindowProc(
             return 0;
         }
 
+        case WM_ERASEBKGRD: {
+            return 1;
+        }
+
         case WM_PAINT: {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hwnd, &ps);
 
+            RECT rc;
+            GetClientRect(hwnd, &rc);
+            int width = rc.right - rc.left;
+            int height = rc.bottom - rc.top;
+
+            HDC mem_hdc = CreateCompatibleDC(hdc);
+            HBITMAP mem_hbm = CreateCompatibleBitmap(hdc, width, height);
+            HBITMAP old_hbm = (HBITMAP)SelectObject(mem_hdc, mem_hbm);
+
+            FillRect(mem_hdc, &rc, (HBRUSH)(COLOR_WINDOW + 1));
+
             //文字
-            SetTextColor(hdc, RGB(255, 0, 0));
+            SetTextColor(mem_hdc, RGB(255, 0, 0));
             const wchar_t text[] = L"Hello, Win32 API!";
-            TextOut(hdc, 50, 50, text, lstrlen(text));
+            TextOut(mem_hdc, x, 50, text, lstrlen(text));
 
             //図形
-            Rectangle(hdc, 50, 100, 250, 200);
+            Rectangle(mem_hdc, x, 50, x + 50, 100);
             
-            MoveToEx(hdc, 50, 250, NULL);
-            LineTo(hdc, 250, 500);
+            MoveToEx(mem_hdc, x, 250, NULL);
+            LineTo(mem_hdc, x, 500);
+            //
+            //
+            BitBlt(hdc, 0, 0, width, height, mem_hdc, 0, 0, SRCCOPY);
+
+            SelectObject(mem_hdc, old_hbm);
+            DeleteObject(mem_hbm);
+            DeleteDC(mem_hdc);
 
             //BeginPaintの後必ず実行
             EndPaint(hwnd, &ps);
