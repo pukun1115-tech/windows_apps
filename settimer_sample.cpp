@@ -36,9 +36,9 @@ LRESULT CALLBACK WindowProc(
                 RECT rc;
                 GetClientRect(hwnd, &rc);
                 
-                x += 10;
+                x += 1;
                 if (x > rc.right - rc.left) {
-                    x = -10;
+                    x = 0;
                 }
 
                 InvalidateRect(hwnd, NULL, FALSE);
@@ -46,7 +46,7 @@ LRESULT CALLBACK WindowProc(
             return 0;
         }
 
-        case WM_ERASEBKGRND: {
+        case WM_ERASEBKGND: {
             return 1;
         }
 
